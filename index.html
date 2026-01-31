@@ -129,10 +129,6 @@
             position: relative;
         }
 
-        .no-btn:hover {
-            background: #d0d0d0;
-        }
-
         .response {
             display: none;
             margin-top: 30px;
@@ -192,7 +188,7 @@
             <p class="question">Will you be my Valentine?</p>
             <div class="buttons">
                 <button class="yes-btn" onclick="handleYes()">Yes! 💖</button>
-                <button class="no-btn" id="noBtn" onclick="handleNo(event)">No</button>
+                <button class="no-btn" id="noBtn">No</button>
             </div>
         </div>
         <div class="response" id="response">
@@ -229,19 +225,21 @@
             }
         }
 
-        function handleNo(event) {
-            const btn = event.target;
-            const maxX = window.innerWidth - btn.offsetWidth - 100;
-            const maxY = window.innerHeight - btn.offsetHeight - 100;
+        // Make the No button run away from cursor
+        const noBtn = document.getElementById('noBtn');
+        
+        noBtn.addEventListener('mouseover', function() {
+            const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 100;
             
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            const randomX = Math.max(0, Math.random() * maxX);
+            const randomY = Math.max(0, Math.random() * maxY);
             
-            btn.style.position = 'fixed';
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
-            btn.style.transition = 'all 0.3s ease';
-        }
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transition = 'all 0.3s ease';
+        });
     </script>
 </body>
 </html>
